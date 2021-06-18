@@ -13,7 +13,7 @@
     <canvas id="myCanvas" width="1600" height="1000"></canvas>
     <script>
 
-      function addPoints(pointA, pointB) {
+function addPoints(pointA, pointB) {
         return {x: pointA.x + pointB.x, y: pointA.y + pointB.y};
       }
 
@@ -58,8 +58,12 @@
         }
       }
 
+      function toHex(dec) {
+        return ("0" + Math.floor(dec).toString(16)).slice(-2)
+      }
+
       const segmentLength = 4;
-      const origin = {x: 1000.5, y: 650.5};
+      const origin = {x: 0, y: 0};
 
       // Create the initial points for the folded paper
       const points = [
@@ -77,14 +81,14 @@
       var c = document.getElementById("myCanvas");
       var ctx = c.getContext("2d");
 
-      ctx.strokeStyle = "#00ff00";
       ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) {
+        ctx.strokeStyle = `hsl(${360 * i / points.length}, 100%, 50%)`;
+        ctx.beginPath();
+        ctx.moveTo(points[i - 1].x, points[i - 1].y);
         ctx.lineTo(points[i].x, points[i].y);
+        ctx.stroke();
       }
-      ctx.stroke();
 
     </script>
   </body>
